@@ -2,7 +2,7 @@ package edu.apu.crs.models;
 
 public class CourseRecoveryPlan {
 
-    private String planId; // P001, P002, etc.
+    private String planId;
     private String studentId;
     private String courseId;
     private int studyWeek;
@@ -43,7 +43,7 @@ public class CourseRecoveryPlan {
         return recommendation;
     }
 
-    // Setters (for tracking/updating status)
+    // Setters
     public void setStatus(String status) {
         this.status = status;
     }

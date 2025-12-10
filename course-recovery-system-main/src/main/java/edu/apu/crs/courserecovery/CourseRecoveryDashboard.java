@@ -17,6 +17,11 @@ public class CourseRecoveryDashboard extends JFrame {
     // Layout Manager to switch screens
     private CardLayout cardLayout;
     private JPanel mainContainer;
+    
+    // Eligibility Panel Components
+    private DefaultTableModel eligibilityModel;
+    private JComboBox<String> eligibilityFilterCombo;
+    private JTextField searchField;
 
     public CourseRecoveryDashboard(systemUser user) {
         this.currentUser = user;
@@ -32,7 +37,7 @@ public class CourseRecoveryDashboard extends JFrame {
         mainContainer = new JPanel(cardLayout);
 
         // 2. Add Screens to the Container
-        mainContainer.add(createMenuPanel(), "MENU");       // The Main Menu
+        mainContainer.add(createMenuPanel(), "MENU");
         mainContainer.add(buildEligibilityPanel(), "ELIGIBILITY");
         mainContainer.add(buildRecoveryPanel(), "RECOVERY");
         mainContainer.add(buildReportPanel(), "REPORT");
@@ -58,7 +63,7 @@ public class CourseRecoveryDashboard extends JFrame {
 
         String role = currentUser.getRoleTitle();
 
-        // --- LOGIC: Only add buttons allowed for the specific role ---
+        // show button base on role
 
         // 1. ACADEMIC OFFICER Features
         if (role.equalsIgnoreCase("Academic Officer")) {
@@ -91,33 +96,150 @@ public class CourseRecoveryDashboard extends JFrame {
     }
 
     // =================================================================
-    // 🧩 FEATURE PANELS (Simple Versions)
+    // 🧩 FEATURE PANELS
     // =================================================================
 
     // 1. ELIGIBILITY PANEL
     private JPanel buildEligibilityPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout(10,10));
         
-        // Header with Back Button
-        panel.add(createHeaderPanel("Student Eligibility Check"), BorderLayout.NORTH);
+        // 1. Control Panel (NORTH)
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 5));
+        
+        // Filter Components (Existing)
+        JLabel filterLabel = new JLabel("Filter by Status:");
+        eligibilityFilterCombo = new JComboBox<>(new String[]{"All Students", "Eligible Only", "Needs Recovery Only"});
+        
+        // Search Components (NEW)
+        JLabel searchLabel = new JLabel("Search by Student ID:");
+        searchField = new JTextField(10); // 10 columns wide
+        JButton searchBtn = new JButton("Search");
 
-        // Table
-        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Name", "CGPA", "Failed", "Status"}, 0) {
-            @Override public boolean isCellEditable(int row, int col) { return false; } // Read-only
+        // Add the control components
+        controlPanel.add(filterLabel);
+        controlPanel.add(eligibilityFilterCombo);
+        controlPanel.add(searchLabel);
+        controlPanel.add(searchField);
+        controlPanel.add(searchBtn);
+
+        // Refresh Button
+        JButton refreshBtn = new JButton("Refresh Data");
+        controlPanel.add(refreshBtn);
+
+        panel.add(controlPanel, BorderLayout.NORTH);
+
+        // 2. Table Setup (CENTER - Unchanged)
+        eligibilityModel = new DefaultTableModel(
+                new String[]{"Student ID", "Name", "CGPA", "Failed Courses", "Status"}, 0
+        ) {
+            @Override public boolean isCellEditable(int row, int col) { return false; }
         };
         
-        // Load Data
-        List<Student> students = masterDataService.getAllProcessedStudents();
-        for (Student s : students) {
-            boolean eligible = (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
-            model.addRow(new Object[]{
-                s.getStudentId(), s.getStudentName(), String.format("%.2f", s.getCurrentCGPA()),
-                s.getFailedCourseCount(), eligible ? "Eligible" : "Needs Recovery"
-            });
+        JTable table = new JTable(eligibilityModel);
+        table.getTableHeader().setReorderingAllowed(false);
+        panel.add(new JScrollPane(table), BorderLayout.CENTER);
+
+        // 3. Action Listeners
+        // --- Initial Load ---
+        filterAndLoadData();
+
+        // --- Search Action ---
+        searchBtn.addActionListener(e -> searchStudentData(searchField.getText().trim()));
+        
+        // --- Filter/Refresh Actions ---
+        eligibilityFilterCombo.addActionListener(e -> filterAndLoadData());
+        refreshBtn.addActionListener(e -> {
+            searchField.setText(""); // Clear search bar on refresh
+            filterAndLoadData();
+        });
+
+        return panel;
+    }
+    
+    private void filterAndLoadData() {
+        eligibilityModel.setRowCount(0);
+        List<Student> allStudents = masterDataService.getAllProcessedStudents();
+        String selectedFilter = (String) eligibilityFilterCombo.getSelectedItem();
+        
+        // 1. Iterate and filter the master list
+        for (Student s : allStudents) {
+            // Calculate status string
+            boolean isEligible = (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
+            String statusText = isEligible ? "Eligible" : "Needs Recovery";
+            
+            boolean showStudent = false;
+    
+            // 2. Apply Filtering Logic
+            switch (selectedFilter) {
+                case "All Students":
+                    showStudent = true;
+                    break;
+                case "Eligible Only":
+                    if (isEligible) {
+                        showStudent = true;
+                    }
+                    break;
+                case "Needs Recovery Only":
+                    if (!isEligible) {
+                        showStudent = true;
+                    }
+                    break;
+            }
+    
+            // 3. Add to table if the filter condition is met
+            if (showStudent) {
+                eligibilityModel.addRow(new Object[]{
+                    s.getStudentId(),
+                    s.getStudentName(),
+                    String.format("%.2f", s.getCurrentCGPA()), // Format CGPA to 2 decimals
+                    s.getFailedCourseCount(),
+                    statusText
+                });
+            }
+        }
+    }
+    
+    // =====================================================================
+    // 🔧 NEW SEARCH METHOD
+    // =====================================================================
+    private void searchStudentData(String studentId) {
+        // If the search bar is empty, revert to the standard filter view
+        if (studentId.isEmpty()) {
+            filterAndLoadData();
+            return;
         }
 
-        panel.add(new JScrollPane(new JTable(model)), BorderLayout.CENTER);
-        return panel;
+        // Clear the table before displaying search results
+        eligibilityModel.setRowCount(0);
+
+        // Find the student using the MasterService bridge
+        Student s = masterDataService.findStudentById(studentId);
+
+        if (s != null) {
+            // Student found: display only this student's data
+            boolean isEligible = (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
+            String statusText = isEligible ? "Eligible" : "Needs Recovery";
+            
+            eligibilityModel.addRow(new Object[]{
+                s.getStudentId(),
+                s.getStudentName(),
+                String.format("%.2f", s.getCurrentCGPA()),
+                s.getFailedCourseCount(),
+                statusText
+            });
+            // Reset the filter combo, as only the search result is shown
+            eligibilityFilterCombo.setSelectedItem("All Students"); 
+        } else {
+            // Student not found: display an error row
+            eligibilityModel.addRow(new Object[]{
+                studentId,
+                "Student Not Found",
+                "N/A",
+                "N/A",
+                "N/A"
+            });
+            JOptionPane.showMessageDialog(this, "Student ID '" + studentId + "' was not found.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     // 2. RECOVERY PANEL

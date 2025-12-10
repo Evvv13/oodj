@@ -15,19 +15,19 @@ public class SystemUserFileReader extends baseDataReader{
 
     private static final String FILE_NAME = "systemUserList.txt";
 
-    // The method reads the file and returns a list of SystemUser objects (Polymorphism)
+    
     public static List<systemUser> readAllUsers() {
         List<systemUser> users = new ArrayList<>();
         
-        // Use an instance of the class to access the protected getReader() method
+        
         try (BufferedReader br = new SystemUserFileReader().getReader(FILE_NAME)) {
-            if (br == null) return users; // File not found or error occurred
+            if (br == null) return users; // File not found error handling
 
             String line;
             
 
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue; // skip empty line
+                if (line.trim().isEmpty()) continue;
                 
                 String[] parts = line.split(",");
 
@@ -36,21 +36,23 @@ public class SystemUserFileReader extends baseDataReader{
                     continue;
                 }
 
+                String userID = parts[0].trim();
                 String username = parts[1].trim();
+                String email = parts[2].trim();
                 String password = parts[3].trim();
                 String role = parts[4].trim();
 
-                systemUser user = null; // Use SystemUser casing (Java standard)
+                systemUser user = null;
                 
-                // Instantiation based on Role (Polymorphism at work)
+                // Instantiation based on Role (Polymorphism)
                 switch (role) {
 
                     case "Academic Officer":
-                        user = new AcademicOfficer(username, password, role, true); 
+                        user = new AcademicOfficer(userID ,username,email, password, role, true); 
                         break;
 
                     case "Course Admin":
-                        user = new CourseAdministrator(username, password, role, true); 
+                        user = new CourseAdministrator(userID ,username,email, password, role, true); 
                         break;
                         
                     default:

@@ -16,18 +16,17 @@ public class StudentFileReader extends baseDataReader{
             if (br == null) return students;
 
             String line;
-            br.readLine(); // Skip header (StudentID,Student Name,Email,ProgramID,Program,currentSemester)
+    
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                // Expects at least 6 parts
+                
                 if (parts.length >= 6) {
                     try {
                         String studentId = parts[0].trim();
                         String studentName = parts[1].trim();
                         String email = parts[2].trim();
                         String programId = parts[3].trim();
-                        // String programName = parts[4].trim(); // Program name can be looked up later
                         int currentSemester = Integer.parseInt(parts[5].trim());
                         
                         students.add(new Student(studentId, studentName, email, programId, currentSemester));

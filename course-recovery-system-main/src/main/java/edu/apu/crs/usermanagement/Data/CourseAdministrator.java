@@ -2,8 +2,8 @@ package edu.apu.crs.usermanagement.Data;
 
 public class CourseAdministrator extends systemUser{
 
-    public CourseAdministrator(String username, String password, String role, boolean isActive) {
-        super(username, password, role, isActive);
+    public CourseAdministrator(String userID ,String username, String email,String password, String role, boolean isActive) {
+        super(userID ,username,email, password, role, isActive);
     }
 
     // Polymorphism: Implements the abstract method

@@ -18,11 +18,12 @@ public class ScoreFileReader extends baseDataReader {
             if (br == null) return scores;
 
             String line;
-            br.readLine(); // Skip header (StudentID,CourseID,Attempt,Semester,AssignmentScore,FinalExamScore,GradePoint,Grade,Status)
+
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                // Expects 9 parts
+                
+
                 if (parts.length >= 9) {
                     try {
                         String studentId = parts[0].trim();
@@ -33,11 +34,9 @@ public class ScoreFileReader extends baseDataReader {
                         int examScore = Integer.parseInt(parts[5].trim());
                         double gradePoint = Double.parseDouble(parts[6].trim());
                         String grade = parts[7].trim();
-                        String status = parts[8].trim(); 
+                        String status = parts[8].trim();
                         
-                        // NOTE: The Score class's constructor currently accepts GradePoint/Grade/Status as input.
-                        // It also has calGradePoint() which calculates/overwrites them.
-                        // We will rely on the data file for now, but the Service layer will re-calculate/validate this.
+                        
                         scores.add(new Score(
                             studentId, courseId, attempt, semester,
                             assignmentScore, examScore, grade, gradePoint, status

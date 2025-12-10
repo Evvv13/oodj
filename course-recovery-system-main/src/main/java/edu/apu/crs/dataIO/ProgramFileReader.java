@@ -17,7 +17,6 @@ public class ProgramFileReader extends baseDataReader {
             if (br == null) return programs;
 
             String line;
-            br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");

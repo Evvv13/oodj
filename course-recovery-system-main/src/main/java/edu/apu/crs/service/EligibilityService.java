@@ -9,23 +9,23 @@ import java.util.stream.Collectors;
 
 public class EligibilityService {
 
-    // Map of CourseID -> Credit Hours, needed for CGPA calculation
+    
+    // using courseID to get the course credit hours for calculate cgpa
     private final Map<String, Integer> courseCredits;
 
     
     public EligibilityService(List<Course> allCourses) {
-        // Prepare the lookup map: CourseID -> Credits
+        
         this.courseCredits = allCourses.stream()
             .collect(Collectors.toMap(Course::getCourseId, Course::getCredits));
     }
 
 
 
-    // --- Core Calculation Methods ---
+    // --- Main Calculation Methods ---
 
     /**
      * Calculates the CGPA for a student based on their scores.
-     * Implements the formula: CGPA = (Total Grade Points * Credits) / (Total Credits)
      *
      * @param scores List of all scores for a student.
      * @return Calculated CGPA.
@@ -35,11 +35,12 @@ public class EligibilityService {
         int totalCreditHours = 0;
         
         for (Score score : scores) {
-            // Fetch credit hours using the CourseID map
-            int credits = courseCredits.getOrDefault(score.getcourseId(), 0); 
+
+            // get credit hour
+            int credits = courseCredits.getOrDefault(score.getcourseId(), 0);
             
             // Check if status is FAIL (Grade Point is 0) to exclude failed courses from calculation if the assignment requires it.
-            // NOTE: The standard CGPA calculation includes failed courses (Grade Point 0) unless retaken. 
+            // NOTE: The standard CGPA calculation includes failed courses (Grade Point 0) unless retaken.
             // We use the recorded GradePoint regardless of status, as per CGPA definition.
             totalGradePointsXCredits += score.getgradePoint() * credits;
             totalCreditHours += credits;
@@ -49,7 +50,7 @@ public class EligibilityService {
             return 0.0;
         }
         
-        // Return rounded CGPA (to 2 decimal places, like 3.11 in the sample)
+        // Return rounded CGPA (in 2 decimal )
         return Math.round((totalGradePointsXCredits / totalCreditHours) * 100.0) / 100.0;
     }
 
@@ -70,13 +71,12 @@ public class EligibilityService {
     // --- Eligibility Decision Methods ---
 
     /**
-     * Determines if a student is eligible to progress to the next level.
-     *
      * @param cgpa Calculated CGPA.
      * @param failedCourseCount Count of courses marked as FAIL.
      * @return true if eligible, false otherwise.
      */
     public boolean isEligibleToProgress(double cgpa, int failedCourseCount) {
+
         // Criteria 1: At least CGPA 2.0
         boolean meetsCgpa = cgpa >= 2.0;
         
@@ -92,11 +92,12 @@ public class EligibilityService {
      */
     public void processAllStudentEligibility(List<Student> students) {
         for (Student student : students) {
-            // 1. Calculate and store CGPA
+
+            // 1. Calculate CGPA
             double cgpa = calculateCGPA(student.getScores());
             student.setCurrentCGPA(cgpa);
             
-            // 2. Calculate and store failed course count
+            // 2. Calculate failed course count
             int failedCount = countFailedCourses(student.getScores());
             student.setFailedCourseCount(failedCount);
         }

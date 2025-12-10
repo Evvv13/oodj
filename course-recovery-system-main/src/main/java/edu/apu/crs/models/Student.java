@@ -12,10 +12,13 @@ public class Student {
     private String ProgramID;
     private int currentSemester;
 
-    // AGGREGATION/COMPOSITION: A Student object holds a collection of their Score objects.
+    // AGGREGATION/COMPOSITION
+    // each Student object holds multiple of their Score objects.
+
     private List<Score> scores = new ArrayList<>();
 
-    // New fields for Eligibility check (can be calculated and stored here)
+    
+    // temporary field for Eligibility check
     private double currentCGPA = 0.0;
     private int failedCourseCount = 0;
 
@@ -89,6 +92,8 @@ public class Student {
     }
 
 
+    /// wan teng look thisssssss
+    
     /**
      * Retrieves a map of failed courses (CourseID -> CourseName) for this student.
      * This relies on having the Course Name data available elsewhere (e.g., in the GUI or another service).

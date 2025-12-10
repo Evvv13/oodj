@@ -36,4 +36,8 @@ public class MasterDataService {
         return eligibilityService.getStudentsNeedingRecovery(processedStudents);
     }
 
+    public Student findStudentById(String studentId) {
+        return studentDataService.findStudentById(studentId);
+    }
+
 }

@@ -7,14 +7,10 @@ import java.io.IOException;
 
 public class baseDataReader {
 
-    // File path where all data files are located
+    // File path
     protected static final String DATA_DIR = "src/main/resources/data/";
     
-    /**
-     * Creates a BufferedReader for a given file name.
-     * @param fileName The name of the file (e.g., "stuList.txt").
-     * @return BufferedReader if successful, null otherwise.
-     */
+    
     protected BufferedReader getReader(String fileName) {
         File file = new File(DATA_DIR + fileName);
         if (!file.exists()) {

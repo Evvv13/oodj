@@ -2,7 +2,7 @@ package edu.apu.crs.models;
 
 public class Milestone {
 
-    private String courseRecoveryPlanId; // Corresponds to CourseRecoveryPlanID
+    private String courseRecoveryPlanId;
     private String courseId;
     private int studyWeek;
     private String task;

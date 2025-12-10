@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// This service is responsible for aggregating raw data into usable Student objects 
+// This service is responsible for aggregating raw data into usable Student objects
 // (Aggregation)
 
 public class StudentDataService {
 
-    private final List<Student> students; // List of all students
+    private final List<Student> students;
 
     public StudentDataService() {
-        // 1. Load raw student and score data
+        // 1. Load data
         List<Student> rawStudents = StudentFileReader.readStudents();
         List<Score> rawScores = ScoreFileReader.readScores();
         
@@ -35,7 +35,7 @@ public class StudentDataService {
         this.students = rawStudents;
     }
 
-    // Getter to provide the complete list of aggregated students to other services (like EligibilityService)
+    // Getter to provide the complete list of aggregated students to other services
     public List<Student> getAllStudents() {
         return students;
     }

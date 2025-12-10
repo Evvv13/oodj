@@ -26,22 +26,16 @@ public class systemUserService {
         System.out.println("Loaded " + this.users.size() + " system users.");
     }
 
-    /**
-     * Authenticates a user and logs the login timestamp to a binary file.
-     * 
-     * @param username The username provided for login.
-     * @param password The password provided for login.
-     * @return The SystemUser object if credentials are valid and user is active,
-     *         otherwise null.
-     */
-    public systemUser login(String username, String password) {
+    
+    
+    public systemUser login(String input, String password) {
         // Polymorphism: iterating over the abstract SystemUser list to find the
         // concrete subclass
         for (systemUser u : users) {
-            if (u.getUsername().equalsIgnoreCase(username) // Use equalsIgnoreCase for flexibility
-                    && u.getPassword().equals(password)
-                    && u.isActive()) {
-                logTimestamp(username, true); // Log login (Phase III, Step 10)
+            boolean nameMatch = u.getUsername().equalsIgnoreCase(input);
+            boolean idMatch = u.getUserID().equalsIgnoreCase(input);
+
+            if ((nameMatch || idMatch) && u.getPassword().equals(password) && u.isActive()) {
                 return u;
             }
         }
@@ -50,7 +44,7 @@ public class systemUserService {
 
     /**
      * Logs the logout timestamp to a binary file. (Phase III, Step 10)
-     * 
+     *
      * @param username The username logging out.
      */
     public void logout(String username) {
@@ -80,7 +74,7 @@ public class systemUserService {
      * @param role User's role (e.g., "Academic Officer" or "Course Admin").
      * @param active Initial active status.
      */
-    public void addUser(String username, String password, String role, boolean active) {
+    public void addUser(String userID ,String username,String email, String password, String role, boolean active) {
         // Use the role string to determine which subclass to instantiate (Inheritance & Polymorphism)
         systemUser newUser = null;
         String normalizedRole = role.toLowerCase().replace(" ", "");
@@ -88,10 +82,10 @@ public class systemUserService {
             // Role assignment based on assignment requirements
             case "courseadmin":
             case "courseadministrator":
-                newUser = new CourseAdministrator(username, password, role, active);
+                newUser = new CourseAdministrator(userID ,username, email,password, role, active);
                 break;
             case "academicofficer":
-                newUser = new AcademicOfficer(username, password, role, active);
+                newUser = new AcademicOfficer(userID ,username,email, password, role, active);
                 break;
             default:
                 System.err.println("Attempted to add user with unsupported role: " + role);
@@ -122,13 +116,7 @@ public class systemUserService {
         return null;
     }
 
-    /**
-     * Updates the password for a given user.
-     * 
-     * @param username    The user whose password needs updating.
-     * @param newPassword The new password.
-     * @return true if successful, false otherwise.
-     */
+    
     public boolean updatePassword(String username, String newPassword) {
         systemUser u = findUser(username);
         if (u != null) {
@@ -168,6 +156,16 @@ public class systemUserService {
             System.out.println(u.getUsername() + " | " + u.getRoleTitle() + " | Active: " + u.isActive());
         }
         System.out.println("-------------------");
+    }
+
+    // find user email ( for password recovery )
+    public systemUser findUserByEmail(String email) {
+        for (systemUser u : users) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return u;
+            }
+        }
+        return null;
     }
 
 }

@@ -16,17 +16,19 @@ public class CourseFileReader extends baseDataReader{
             if (br == null) return courses;
 
             String line;
-            br.readLine(); // Skip header (CourseID ,CourseName,Credit,Semester)
+            br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                // Expects 4 parts: C001,Introduction to Databases,3,1
+
+                
                 if (parts.length >= 4) {
                     try {
                         String courseId = parts[0].trim();
                         String courseName = parts[1].trim();
                         int credits = Integer.parseInt(parts[2].trim());
                         int semester = Integer.parseInt(parts[3].trim());
+                        
                         courses.add(new Course(courseId, courseName, credits, semester));
                     } catch (NumberFormatException e) {
                         System.err.println("Skipping line with invalid number format: " + line);
