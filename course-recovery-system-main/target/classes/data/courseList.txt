@@ -1,0 +1,35 @@
+C001,Introduction to Databases,3,1
+C002,Introduction to Networking,4,1
+C003,System Software and Computing Concepts ,3,1
+C004,Mathematical Concepts for Computing,3,1
+C005,Digital Thinking and Innovation,4,1
+C006,Mobile and Wireless Technology,3,1
+C007,Introduction to Management,3,1
+C008,Business and Communication Skills,2,1
+C009,Fundamentals of Entrepreneurship,2,1
+C010,Business Economics,4,1
+C011,Engineering Materials,3,1
+C012,Programming with Python,4,1
+C013,Engineering Mathematics,4,1
+C014,Integrated Computer Systems,3,1
+C015,Fundamentals of Web Design and Development,3,1
+C016,Programming for Data Analysis,4,2
+C017,Object Oriented Development with Java,3,2
+C018,System Development Methods,3,2
+C019,Innovation Process,2,2
+C020,Human Computer Interaction,2,2
+C021,Systems and Network Administration,4,2
+C022,Network Security,3,2
+C023,Data Structures,3,2
+C024,Digital Electronics,2,2
+C025,Engineering Software & Applications,3,2
+C026,Business Research Methods,2,2
+C027,Business Ethics and Governance,3,2
+C028,Digital Marketing,2,2
+C029,Management Accounting,3,2
+C030,Financial Management,3,2
+C031,Web Applications,3,2
+C032,Research Methods ,3,2
+C033,Human Computer Interaction,4,2
+C034,Further Mathematics,3,2
+C035,Computing Theory,4,2

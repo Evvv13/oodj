@@ -1,0 +1,100 @@
+S001,Aaron Tan Wei Ming,aaron.tan@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S002,Beatrice Lim Su Yin,beatrice.lim@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S003,Christopher Ng Jun Kai,christopher.ng@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S004,Daphne Chen Mei Ling,daphne.chen@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S005,Ethan Wong Zheng Hong,ethan.wong@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S006,Fiona Teo Jia Hui,fiona.teo@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S007,Gabriel Lee Yong Sheng,gabriel.lee@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S008,Hannah Goh Xin Yi,hannah.goh@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S009,Isaac Tan Wei Jie,isaac.tan@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S010,Jasmine Lim Pei Wen,jasmine.lim@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S011,Kevin Ong Zhi Hao,kevin.ong@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S012,Lauren Chua Su Lin,lauren.chua@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S013,Marcus Yeo Jun Wei,marcus.yeo@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S014,Natalie Koh Xin Ting,natalie.koh@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S015,Oliver Chan Ming Feng,oliver.chan@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S016,Priscilla Low Mei Qi,priscilla.low@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S017,Quentin Tay Boon Kiat,quentin.tay@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S018,Rachel Lim Jia Min,rachel.lim@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S019,Samuel Goh Wei Liang,samuel.goh@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S020,Tiffany Ng Shu Wen,tiffany.ng@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S021,Ulysses Tan Kok Leong,ulysses.tan@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S022,Victoria Teo Xin Hui,victoria.teo@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S023,Wilson Lim Jun Kai,wilson.lim@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S024,Xandra Chan Mei Ling,xandra.chan@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S025,Yvonne Wong Siew Lin,yvonne.wong@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S026,Zachary Tan Wei Jie,zachary.tan@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S027,Amelia Goh Xin Yu,amelia.goh@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S028,Benjamin Lee Yong Min,benjamin.lee@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S029,Chloe Ng Pei Shan,chloe.ng@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S030,Daniel Teo Zhi Hao,daniel.teo@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S031,Emily Chan Su Yin,emily.chan@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S032,Felix Lim Jun Xian,felix.lim@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S033,Grace Tan Mei Qi,grace.tan@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S034,Henry Ong Wei Sheng,henry.ong@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S035,Isabelle Koh Jia Hui,isabelle.koh@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S036,Julian Goh Ming Feng,julian.goh@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S037,Kaitlyn Lim Xin Ting,kaitlyn.lim@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S038,Lucas Tan Boon Kiat,lucas.tan@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S039,Megan Chua Jia Min,megan.chua@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S040,Nathan Lee Wei Liang,nathan.lee@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S041,Olivia Ng Shu Wen,olivia.ng@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S042,Patrick Teo Kok Leong,patrick.teo@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S043,Queenie Lim Xin Hui,queenie.lim@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S044,Ryan Goh Jun Kai,ryan.goh@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S045,Sophia Tan Mei Ling,sophia.tan@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S046,Thomas Chan Siew Lin,thomas.chan@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S047,Uma Wong Wei Jie,uma.wong@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S048,Vincent Lim Xin Yu,vincent.lim@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S049,Wendy Goh Yong Min,wendy.goh@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S050,Xavier Ng Pei Shan,xavier.ng@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S051,Yara Teo Zhi Hao,yara.teo@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S052,Zane Chan Su Yin,zane.chan@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S053,Alice Lim Jun Xian,alice.lim@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S054,Brandon Tan Mei Qi,brandon.tan@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S055,Cassandra Ong Wei Sheng,cassandra.ong@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S056,Damian Koh Jia Hui,damian.koh@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S057,Elena Goh Ming Feng,elena.goh@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S058,Fabian Lim Xin Ting,fabian.lim@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S059,Georgia Tan Boon Kiat,georgia.tan@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S060,Hugo Chua Jia Min,hugo.chua@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S061,Ivy Lee Wei Liang,ivy.lee@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S062,Jack Ng Shu Wen,jack.ng@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S063,Kylie Teo Kok Leong,kylie.teo@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S064,Leo Lim Xin Hui,leo.lim@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S065,Mia Goh Jun Kai,mia.goh@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S066,Noah Tan Mei Ling,noah.tan@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S067,Oscar Chan Siew Lin,oscar.chan@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S068,Penelope Wong Wei Jie,penelope.wong@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S069,Quinn Lim Xin Yu,quinn.lim@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S070,Ryder Goh Yong Min,ryder.goh@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S071,Stella Ng Pei Shan,stella.ng@student.edu,P001,Bachelor of Science (Honours) in Information Technology,1
+S072,Theo Teo Zhi Hao,theo.teo@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),1
+S073,Ursula Chan Su Yin,ursula.chan@student.edu,P003,Bachelor of Science (Honours) in Computer Science,1
+S074,Victor Lim Jun Xian,victor.lim@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),1
+S075,Willow Tan Mei Qi,willow.tan@student.edu,P007,Bachelor of Arts (Honours) in Business Management,1
+S076,Xander Ong Wei Sheng,xander.ong@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,1
+S077,Yvette Koh Jia Hui,yvette.koh@student.edu,P006,Bachelor of Accounting and Finance (Honours),1
+S078,Zara Goh Ming Feng,zara.goh@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,1
+S079,Adam Lim Xin Ting,adam.lim@student.edu,P009,Bachelor of Computer Engineering with Honours,1
+S080,Bella Tan Boon Kiat,bella.tan@student.edu,P001,Bachelor of Science (Honours) in Information Technology,2
+S081,Cody Chua Jia Min,cody.chua@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),2
+S082,Daisy Lee Wei Liang,daisy.lee@student.edu,P003,Bachelor of Science (Honours) in Computer Science,2
+S083,Evan Ng Shu Wen,evan.ng@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),2
+S084,Faith Teo Kok Leong,faith.teo@student.edu,P007,Bachelor of Arts (Honours) in Business Management,2
+S085,Grant Lim Xin Hui,grant.lim@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,2
+S086,Hazel Goh Jun Kai,hazel.goh@student.edu,P006,Bachelor of Accounting and Finance (Honours),2
+S087,Ian Tan Mei Ling,ian.tan@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,2
+S088,Jade Chan Siew Lin,jade.chan@student.edu,P009,Bachelor of Computer Engineering with Honours,2
+S089,Kai Wong Wei Jie,kai.wong@student.edu,P001,Bachelor of Science (Honours) in Information Technology,2
+S090,Luna Lim Xin Yu,luna.lim@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),2
+S091,Mason Goh Yong Min,mason.goh@student.edu,P003,Bachelor of Science (Honours) in Computer Science,2
+S092,Nova Ng Pei Shan,nova.ng@student.edu,P004,Bachelor of Science (Honours) in CS in (Cyber Security),2
+S093,Owen Teo Zhi Hao,owen.teo@student.edu,P007,Bachelor of Arts (Honours) in Business Management,2
+S094,Piper Chan Su Yin,piper.chan@student.edu,P005,Bachelor of Science (Hons) in Software Engineering,2
+S095,Quinn Lim Jun Xian,quinn.lim@student.edu,P006,Bachelor of Accounting and Finance (Honours),2
+S096,Ruby Tan Mei Qi,ruby.tan@student.edu,P008,Bachelor of Arts (Honours) in Marketing Management,2
+S097,Silas Ong Wei Sheng,silas.ong@student.edu,P009,Bachelor of Computer Engineering with Honours,2
+S098,Tessa Koh Jia Hui,tessa.koh@student.edu,P001,Bachelor of Science (Honours) in Information Technology,2
+S099,Uriah Goh Ming Feng,uriah.goh@student.edu,P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech),2
+S100,Violet Lim Xin Ting,violet.lim@student.edu,P003,Bachelor of Science (Honours) in Computer Science,2

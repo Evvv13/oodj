@@ -1,0 +1,139 @@
+CR001,C001,1,Review database notes
+CR002,C001,2,Redo database lab work
+CR003,C001,3,Ask lecturer about weak topics
+CR004,C001,4,Take Recovery Exam
+CR005,C002,1,Review networking notes
+CR006,C002,2,Practice IP and subnetting
+CR007,C002,3,Redo networking lab tasks
+CR008,C002,4,Try extra tutorial questions
+CR009,C002,5,Take Recovery Exam
+CR010,C003,1,Review system software notes
+CR011,C003,2,Summarise key OS concepts
+CR012,C003,3,Redo related tutorial questions
+CR013,C003,4,Take Recovery Exam
+CR014,C004,1,Review maths formulas
+CR015,C004,2,Redo tutorial problems
+CR016,C004,3,Take Recovery Exam
+CR017,C005,1,Review innovation concepts
+CR018,C005,2,Improve previous assignment
+CR019,C005,3,Take Recovery Exam
+CR020,C006,1,Review mobile tech notes
+CR021,C006,2,Redo wireless lab tasks
+CR022,C006,3,Summarise key standards
+CR023,C006,4,Take Recovery Exam
+CR024,C007,1,Review management theories
+CR025,C007,2,Redo case study answers
+CR026,C007,3,Take Recovery Exam
+CR027,C008,1,Review communication models
+CR028,C008,2,Rewrite sample report
+CR029,C008,3,Practice presentation outline
+CR030,C008,4,Take Recovery Exam
+CR031,C009,1,Review entrepreneurship notes
+CR032,C009,2,Update business idea canvas
+CR033,C009,3,Take Recovery Exam
+CR034,C010,1,Review economics graphs
+CR035,C010,2,Redo calculation questions
+CR036,C010,3,Practice past year questions
+CR037,C010,4,Take Recovery Exam
+CR038,C011,1,Review material properties
+CR039,C011,2,Redo structure questions
+CR040,C011,3,Take Recovery Exam
+CR041,C012,1,Review Python basics
+CR042,C012,2,Redo coding exercises
+CR043,C012,3,Fix common code errors
+CR044,C012,4,Take Recovery Exam
+CR045,C013,1,Review calculus notes
+CR046,C013,2,Redo differentiation questions
+CR047,C013,3,Redo integration questions
+CR048,C013,4,Take Recovery Exam
+CR049,C014,1,Review computer architecture
+CR050,C014,2,Redo low level exercises
+CR051,C014,3,Take Recovery Exam
+CR052,C015,1,Review HTML and CSS
+CR053,C015,2,Rebuild sample web page
+CR054,C015,3,Improve page layout
+CR055,C015,4,Take Recovery Exam
+CR056,C016,1,Review data analysis notes
+CR057,C016,2,Redo data cleaning lab
+CR058,C016,3,Practice simple analysis code
+CR059,C016,4,Try extra dataset exercise
+CR060,C016,5,Take Recovery Exam
+CR061,C017,1,Review OOP concepts
+CR062,C017,2,Redo Java class exercises
+CR063,C017,3,Fix inheritance and polymorphism
+CR064,C017,4,Build small OOP program
+CR065,C017,5,Take Recovery Exam
+CR066,C018,1,Review SDLC models
+CR067,C018,2,Redo system diagrams
+CR068,C018,3,Discuss method choice examples
+CR069,C018,4,Take Recovery Exam
+CR070,C019,1,Review innovation stages
+CR071,C019,2,Refine innovation idea
+CR072,C019,3,Take Recovery Exam
+CR073,C020,1,Review HCI principles
+CR074,C020,2,Redo interface sketches
+CR075,C020,3,Plan simple usability test
+CR076,C020,4,Take Recovery Exam
+CR077,C021,1,Review admin tasks notes
+CR078,C021,2,Redo service config lab
+CR079,C021,3,Document admin procedures
+CR080,C021,4,Try extra practice task
+CR081,C021,5,Take Recovery Exam
+CR082,C022,1,Review security principles
+CR083,C022,2,Redo firewall configuration
+CR084,C022,3,Discuss threat scenarios
+CR085,C022,4,Take Recovery Exam
+CR086,C023,1,Review data structure notes
+CR087,C023,2,Redo structure implementations
+CR088,C023,3,Analyse time complexity
+CR089,C023,4,Solve extra practice problems
+CR090,C023,5,Take Recovery Exam
+CR091,C024,1,Review logic gate notes
+CR092,C024,2,Redo Karnaugh map questions
+CR093,C024,3,Take Recovery Exam
+CR094,C025,1,Review software tool notes
+CR095,C025,2,Redo application lab tasks
+CR096,C025,3,Write short usage summary
+CR097,C025,4,Take Recovery Exam
+CR098,C026,1,Review research process
+CR099,C026,2,Refine research questions
+CR100,C026,3,Take Recovery Exam
+CR101,C027,1,Review ethics and governance
+CR102,C027,2,Redo case study answers
+CR103,C027,3,Discuss ethical scenarios
+CR104,C027,4,Take Recovery Exam
+CR105,C028,1,Review digital marketing notes
+CR106,C028,2,Redo campaign planning task
+CR107,C028,3,Draft simple content plan
+CR108,C028,4,Take Recovery Exam
+CR109,C029,1,Review costing formulas
+CR110,C029,2,Redo CVP questions
+CR111,C029,3,Practice budgeting questions
+CR112,C029,4,Take Recovery Exam
+CR113,C030,1,Review finance concepts
+CR114,C030,2,Redo NPV and IRR questions
+CR115,C030,3,Practice investment decisions
+CR116,C030,4,Take Recovery Exam
+CR117,C031,1,Review web app architecture
+CR118,C031,2,Redo backend lab tasks
+CR119,C031,3,Improve validation and error checks
+CR120,C031,4,Try extra small web app
+CR121,C031,5,Take Recovery Exam
+CR122,C032,1,Review research methods notes
+CR123,C032,2,Refine proposal structure
+CR124,C032,3,Check alignment with rubric
+CR125,C032,4,Take Recovery Exam
+CR126,C033,1,Review advanced HCI topics
+CR127,C033,2,Refine high fidelity prototype
+CR128,C033,3,Summarise usability findings
+CR129,C033,4,Try extra design exercise
+CR130,C033,5,Take Recovery Exam
+CR131,C034,1,Review further maths notes
+CR132,C034,2,Redo tutorial problem sets
+CR133,C034,3,Practice extra exam style questions
+CR134,C034,4,Take Recovery Exam
+CR135,C035,1,Review automata notes
+CR136,C035,2,Redo formal language questions
+CR137,C035,3,Discuss tricky theory topics
+CR138,C035,4,Try extra proof style questions
+CR139,C035,5,Take Recovery Exam

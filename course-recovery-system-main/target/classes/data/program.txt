@@ -1,0 +1,9 @@
+P001,Bachelor of Science (Honours) in Information Technology
+P002,Bachelor of Science (Honours) in IT in Financial Technology (FinTech)
+P003,Bachelor of Science (Honours) in Computer Science
+P004,Bachelor of Science (Honours) in CS in (Cyber Security)
+P005,Bachelor of Science (Hons) in Software Engineering
+P006,Bachelor of Accounting and Finance (Honours)
+P007,Bachelor of Arts (Honours) in Business Management
+P008,Bachelor of Arts (Honours) in Marketing Management
+P009,Bachelor of Computer Engineering with Honours
