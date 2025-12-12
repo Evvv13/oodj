@@ -1,7 +1,11 @@
 package edu.apu.crs.courserecovery;
 
 import edu.apu.crs.models.Student;
+import edu.apu.crs.models.Course;
+import edu.apu.crs.models.Milestone;
+import edu.apu.crs.models.CourseRecoveryPlan;
 import edu.apu.crs.service.MasterDataService;
+import edu.apu.crs.service.CourseRecoveryService;
 import edu.apu.crs.usermanagement.Data.systemUser;
 
 import javax.swing.*;
@@ -13,30 +17,34 @@ public class CourseRecoveryDashboard extends JFrame {
 
     private final systemUser currentUser;
     private final MasterDataService masterDataService;
-    
-    // Layout Manager
+    private final CourseRecoveryService courseRecoveryService;
+
     private CardLayout cardLayout;
     private JPanel mainContainer;
 
-    // Eligibility Components
     private DefaultTableModel eligibilityModel;
     private JComboBox<String> eligibilityFilterCombo;
     private JTextField searchField;
 
+    private JComboBox<Student> studentCombo;
+    private JComboBox<Course> courseCombo;
+    private JLabel planInfoLabel;
+    private JTable milestoneTable;
+    private DefaultTableModel milestoneTableModel;
+
     public CourseRecoveryDashboard(systemUser user) {
         this.currentUser = user;
         this.masterDataService = new MasterDataService();
+        this.courseRecoveryService = new CourseRecoveryService();
 
         setTitle("CRS Dashboard - " + user.getRoleTitle());
-        setSize(1000, 700);
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // 1. Setup CardLayout
         cardLayout = new CardLayout();
         mainContainer = new JPanel(cardLayout);
 
-        // 2. Add Screens
         mainContainer.add(createMenuPanel(), "MENU");
         mainContainer.add(buildEligibilityPanel(), "ELIGIBILITY");
         mainContainer.add(buildRecoveryPanel(), "RECOVERY");
@@ -44,43 +52,35 @@ public class CourseRecoveryDashboard extends JFrame {
         mainContainer.add(buildUserManagementPanel(), "USER_MANAGE");
 
         add(mainContainer);
-        
-        // Show Menu first
         cardLayout.show(mainContainer, "MENU");
     }
 
-    // =================================================================
-    // 🏠 MENU PANEL (Landing Page)
-    // =================================================================
     private JPanel createMenuPanel() {
         JPanel menuPanel = new JPanel(new GridLayout(0, 1, 10, 10));
-        menuPanel.setBorder(BorderFactory.createEmptyBorder(50, 150, 50, 150));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
 
-        JLabel welcome = new JLabel("Welcome, " + currentUser.getUsername(), SwingConstants.CENTER);
-        welcome.setFont(new Font("Arial", Font.BOLD, 22));
+        JLabel welcome = new JLabel(
+                "Welcome, " + currentUser.getUsername() +
+                        " (" + currentUser.getRoleTitle() + ")",
+                SwingConstants.CENTER
+        );
+        welcome.setFont(new Font("Arial", Font.BOLD, 18));
         menuPanel.add(welcome);
-        
-        JLabel roleLabel = new JLabel("Role: " + currentUser.getRoleTitle(), SwingConstants.CENTER);
-        roleLabel.setFont(new Font("Arial", Font.ITALIC, 16));
-        menuPanel.add(roleLabel);
 
         String role = currentUser.getRoleTitle();
 
-        // ACADEMIC OFFICER Features
         if (role.equalsIgnoreCase("Academic Officer")) {
-            addButton(menuPanel, "Check Student Eligibility", "ELIGIBILITY");
+            addButton(menuPanel, "Check Eligibility", "ELIGIBILITY");
             addButton(menuPanel, "Manage Recovery Plans", "RECOVERY");
-            addButton(menuPanel, "Generate Academic Reports", "REPORT");
+            addButton(menuPanel, "Academic Reports", "REPORT");
         }
 
-        // COURSE ADMIN Features
-        if (role.equalsIgnoreCase("Course Administrator") || role.equalsIgnoreCase("Course Admin")) {
+        if (role.equalsIgnoreCase("Course Administrator")
+                || role.equalsIgnoreCase("Course Admin")) {
             addButton(menuPanel, "User Management", "USER_MANAGE");
         }
 
-        // Logout
         JButton logoutBtn = new JButton("Logout");
-        logoutBtn.setBackground(new Color(255, 200, 200));
         logoutBtn.addActionListener(e -> {
             dispose();
             new edu.apu.crs.usermanagement.LoginPage().setVisible(true);
@@ -92,195 +92,281 @@ public class CourseRecoveryDashboard extends JFrame {
 
     private void addButton(JPanel panel, String label, String cardName) {
         JButton btn = new JButton(label);
-        btn.setFont(new Font("Arial", Font.PLAIN, 16));
         btn.addActionListener(e -> cardLayout.show(mainContainer, cardName));
         panel.add(btn);
     }
 
-    // =================================================================
-    // 1️⃣ ELIGIBILITY PANEL (Fixed Layout)
-    // =================================================================
-    private JPanel buildEligibilityPanel() {
-        // Main Panel for this tab
-        JPanel mainPanel = new JPanel(new BorderLayout());
+    private JPanel createHeaderPanel(String title) {
+        JPanel header = new JPanel(new BorderLayout());
+        JButton backBtn = new JButton("<< Back");
+        backBtn.addActionListener(e -> cardLayout.show(mainContainer, "MENU"));
 
-        // A. Header (TOP) - Contains "Back" button and Title
-        mainPanel.add(createHeaderPanel("Student Eligibility Check"), BorderLayout.NORTH);
-
-        // B. Content Panel (CENTER) - Contains Toolbar and Table
-        JPanel contentPanel = new JPanel(new BorderLayout(10, 10));
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        // --- Toolbar (Filter & Search) ---
-        JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        
-        // Filter
-        toolbar.add(new JLabel("Filter:"));
-        eligibilityFilterCombo = new JComboBox<>(new String[]{"All Students", "Eligible Only", "Needs Recovery Only"});
-        toolbar.add(eligibilityFilterCombo);
-
-        // Search
-        toolbar.add(new JSeparator(SwingConstants.VERTICAL)); // Visual separator
-        toolbar.add(new JLabel("Search ID:"));
-        searchField = new JTextField(10);
-        toolbar.add(searchField);
-        
-        JButton searchBtn = new JButton("Search");
-        JButton resetBtn = new JButton("Reset");
-        toolbar.add(searchBtn);
-        toolbar.add(resetBtn);
-
-        contentPanel.add(toolbar, BorderLayout.NORTH);
-
-        // --- Table ---
-        eligibilityModel = new DefaultTableModel(
-            new String[]{"Student ID", "Name", "CGPA", "Failed Courses", "Status"}, 0
-        ) {
-            @Override public boolean isCellEditable(int row, int col) { return false; }
-        };
-        
-        JTable table = new JTable(eligibilityModel);
-        table.setRowHeight(25);
-        table.getTableHeader().setReorderingAllowed(false);
-        contentPanel.add(new JScrollPane(table), BorderLayout.CENTER);
-
-        // Add Content to Main
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
-
-        // --- Logic & Listeners ---
-        filterAndLoadData(); // Initial load
-
-        // Filter Action
-        eligibilityFilterCombo.addActionListener(e -> filterAndLoadData());
-
-        // Search Action
-        searchBtn.addActionListener(e -> {
-            String term = searchField.getText().trim();
-            if (!term.isEmpty()) {
-                searchStudentData(term);
-            } else {
-                JOptionPane.showMessageDialog(this, "Please enter a Student ID to search.");
-            }
-        });
-
-        // Reset Action
-        resetBtn.addActionListener(e -> {
-            searchField.setText("");
-            eligibilityFilterCombo.setSelectedIndex(0); // Reset filter to All
-            filterAndLoadData(); // Reload full list
-        });
-
-        return mainPanel;
+        header.add(backBtn, BorderLayout.WEST);
+        header.add(new JLabel(title, SwingConstants.CENTER), BorderLayout.CENTER);
+        return header;
     }
 
-    // --- Data Logic: Filter ---
+    // 1. ELIGIBILITY PANEL
+    private JPanel buildEligibilityPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 5));
+
+        JLabel filterLabel = new JLabel("Filter by Status:");
+        eligibilityFilterCombo = new JComboBox<>(
+                new String[]{"All Students", "Eligible Only", "Needs Recovery Only"}
+        );
+
+        JLabel searchLabel = new JLabel("Search by Student ID:");
+        searchField = new JTextField(10);
+        JButton searchBtn = new JButton("Search");
+
+        JButton refreshBtn = new JButton("Refresh Data");
+
+        controlPanel.add(filterLabel);
+        controlPanel.add(eligibilityFilterCombo);
+        controlPanel.add(searchLabel);
+        controlPanel.add(searchField);
+        controlPanel.add(searchBtn);
+        controlPanel.add(refreshBtn);
+
+        panel.add(controlPanel, BorderLayout.NORTH);
+
+        eligibilityModel = new DefaultTableModel(
+                new String[]{"Student ID", "Name", "CGPA", "Failed Courses", "Status"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+
+        JTable table = new JTable(eligibilityModel);
+        table.getTableHeader().setReorderingAllowed(false);
+        panel.add(new JScrollPane(table), BorderLayout.CENTER);
+
+        filterAndLoadData();
+
+        searchBtn.addActionListener(e -> searchStudentData(searchField.getText().trim()));
+
+        eligibilityFilterCombo.addActionListener(e -> filterAndLoadData());
+
+        refreshBtn.addActionListener(e -> {
+            searchField.setText("");
+            filterAndLoadData();
+        });
+
+        return panel;
+    }
+
     private void filterAndLoadData() {
         eligibilityModel.setRowCount(0);
         List<Student> allStudents = masterDataService.getAllProcessedStudents();
         String selectedFilter = (String) eligibilityFilterCombo.getSelectedItem();
-        
+
         for (Student s : allStudents) {
-            boolean isEligible = (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
+            boolean isEligible =
+                    (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
             String statusText = isEligible ? "Eligible" : "Needs Recovery";
-            boolean show = false;
 
-            if (selectedFilter.equals("All Students")) show = true;
-            else if (selectedFilter.equals("Eligible Only") && isEligible) show = true;
-            else if (selectedFilter.equals("Needs Recovery Only") && !isEligible) show = true;
+            boolean showStudent = false;
+            switch (selectedFilter) {
+                case "All Students":
+                    showStudent = true;
+                    break;
+                case "Eligible Only":
+                    showStudent = isEligible;
+                    break;
+                case "Needs Recovery Only":
+                    showStudent = !isEligible;
+                    break;
+            }
 
-            if (show) {
+            if (showStudent) {
                 eligibilityModel.addRow(new Object[]{
-                    s.getStudentId(), s.getStudentName(), String.format("%.2f", s.getCurrentCGPA()),
-                    s.getFailedCourseCount(), statusText
+                        s.getStudentId(),
+                        s.getStudentName(),
+                        String.format("%.2f", s.getCurrentCGPA()),
+                        s.getFailedCourseCount(),
+                        statusText
                 });
             }
         }
     }
 
-    // --- Data Logic: Search ---
     private void searchStudentData(String studentId) {
-        // 1. Clear Table
-        eligibilityModel.setRowCount(0);
+        if (studentId.isEmpty()) {
+            filterAndLoadData();
+            return;
+        }
 
-        // 2. Find Student using MasterService
+        eligibilityModel.setRowCount(0);
         Student s = masterDataService.findStudentById(studentId);
 
         if (s != null) {
-            boolean isEligible = (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
+            boolean isEligible =
+                    (s.getCurrentCGPA() >= 2.0 && s.getFailedCourseCount() <= 3);
             String statusText = isEligible ? "Eligible" : "Needs Recovery";
-            
+
             eligibilityModel.addRow(new Object[]{
-                s.getStudentId(), s.getStudentName(), String.format("%.2f", s.getCurrentCGPA()),
-                s.getFailedCourseCount(), statusText
+                    s.getStudentId(),
+                    s.getStudentName(),
+                    String.format("%.2f", s.getCurrentCGPA()),
+                    s.getFailedCourseCount(),
+                    statusText
             });
+            eligibilityFilterCombo.setSelectedItem("All Students");
         } else {
-            JOptionPane.showMessageDialog(this, "Student ID '" + studentId + "' not found.", "Search Result", JOptionPane.WARNING_MESSAGE);
-            // Optionally reload data so table isn't empty
-            filterAndLoadData();
+            eligibilityModel.addRow(new Object[]{
+                    studentId,
+                    "Student Not Found",
+                    "N/A",
+                    "N/A",
+                    "N/A"
+            });
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Student ID '" + studentId + "' was not found.",
+                    "Search Result",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
         }
     }
 
-    // =================================================================
-    // 2️⃣ RECOVERY PANEL (Placeholder)
-    // =================================================================
+    // 2. RECOVERY PANEL（用你那版 + CourseRecoveryService）
     private JPanel buildRecoveryPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(createHeaderPanel("Course Recovery Management"), BorderLayout.NORTH);
-        
-        JPanel content = new JPanel();
-        content.add(new JLabel("Select Student for Recovery: "));
-        JComboBox<String> combo = new JComboBox<>();
-        
-        // Load only failing students
-        List<Student> list = masterDataService.getStudentsNeedingRecovery();
-        for(Student s : list) combo.addItem(s.getStudentId());
-        
-        content.add(combo);
-        panel.add(content, BorderLayout.CENTER);
+
+        JPanel top = new JPanel();
+        top.add(new JLabel("Student:"));
+
+        studentCombo = new JComboBox<>();
+        for (Student s : masterDataService.getStudentsNeedingRecovery()) {
+            studentCombo.addItem(s);
+        }
+        // 显示 StudentID
+        studentCombo.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value,
+                                                          int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Student) {
+                    setText(((Student) value).getStudentId());
+                }
+                return this;
+            }
+        });
+        top.add(studentCombo);
+
+        top.add(new JLabel("Failed Course:"));
+        courseCombo = new JComboBox<>();
+        courseCombo.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value,
+                                                          int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Course) {
+                    setText(((Course) value).getCourseId());
+                }
+                return this;
+            }
+        });
+        top.add(courseCombo);
+
+        JButton loadBtn = new JButton("Load Plan");
+        top.add(loadBtn);
+
+        panel.add(top, BorderLayout.NORTH);
+
+        planInfoLabel = new JLabel("No plan selected yet");
+        milestoneTableModel = new DefaultTableModel(
+                new String[]{"Week", "Task", "Status"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        milestoneTable = new JTable(milestoneTableModel);
+
+        JPanel center = new JPanel(new BorderLayout());
+        center.add(planInfoLabel, BorderLayout.NORTH);
+        center.add(new JScrollPane(milestoneTable), BorderLayout.CENTER);
+        panel.add(center, BorderLayout.CENTER);
+
+        studentCombo.addActionListener(e -> reloadCoursesForSelectedStudent());
+        loadBtn.addActionListener(e -> loadPlanForSelectedCourse());
+
+        if (studentCombo.getItemCount() > 0) {
+            studentCombo.setSelectedIndex(0);
+        }
+
         return panel;
     }
 
-    // =================================================================
-    // 3️⃣ REPORT PANEL (Placeholder)
-    // =================================================================
+    private void reloadCoursesForSelectedStudent() {
+        if (courseCombo == null) return;
+
+        courseCombo.removeAllItems();
+        milestoneTableModel.setRowCount(0);
+        planInfoLabel.setText("No plan selected yet");
+
+        Student selected = (Student) studentCombo.getSelectedItem();
+        if (selected == null) return;
+
+        // 用 CourseRecoveryService 取得 fail 的 course
+        List<Course> failedCourses =
+                courseRecoveryService.getFailedCoursesForStudent(selected.getStudentId());
+        for (Course c : failedCourses) {
+            courseCombo.addItem(c);
+        }
+    }
+
+    private void loadPlanForSelectedCourse() {
+        Student s = (Student) studentCombo.getSelectedItem();
+        Course c = (Course) courseCombo.getSelectedItem();
+
+        if (s == null || c == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Please select both a student and a course.");
+            return;
+        }
+
+        CourseRecoveryPlan plan =
+                courseRecoveryService.getOrCreateRecoveryPlan(
+                        s.getStudentId(), c.getCourseId());
+
+        planInfoLabel.setText("Plan " + plan.getPlanId()
+                + " | Status: " + plan.getStatus());
+
+        List<Milestone> ms =
+                courseRecoveryService.getMilestonesForCourse(c.getCourseId());
+        milestoneTableModel.setRowCount(0);
+        for (Milestone m : ms) {
+            milestoneTableModel.addRow(new Object[]{
+                    m.getStudyWeek(),
+                    m.getTask(),
+                    plan.getStatus()
+            });
+        }
+    }
+
+    // 3. REPORT PANEL（占位）
     private JPanel buildReportPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add(createHeaderPanel("Academic Performance Reports"), BorderLayout.NORTH);
-        panel.add(new JLabel("Report UI goes here", SwingConstants.CENTER), BorderLayout.CENTER);
+        panel.add(createHeaderPanel("Academic Reports"), BorderLayout.NORTH);
+        panel.add(new JLabel("Report Generation UI Placeholder",
+                SwingConstants.CENTER), BorderLayout.CENTER);
         return panel;
     }
 
-    // =================================================================
-    // 4️⃣ USER MANAGEMENT (Placeholder)
-    // =================================================================
+    // 4. USER MANAGEMENT PANEL（占位）
     private JPanel buildUserManagementPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(createHeaderPanel("User Management"), BorderLayout.NORTH);
-        panel.add(new JLabel("User Management UI goes here", SwingConstants.CENTER), BorderLayout.CENTER);
+        panel.add(new JLabel("Add/Edit System Users UI Placeholder",
+                SwingConstants.CENTER), BorderLayout.CENTER);
         return panel;
-    }
-
-    // --- Helper: Consistent Header with Back Button ---
-    private JPanel createHeaderPanel(String title) {
-        JPanel header = new JPanel(new BorderLayout());
-        header.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        header.setBackground(new Color(240, 240, 240));
-
-        JButton backBtn = new JButton("<< Back to Menu");
-        backBtn.addActionListener(e -> cardLayout.show(mainContainer, "MENU"));
-        
-        JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-
-        header.add(backBtn, BorderLayout.WEST);
-        header.add(titleLabel, BorderLayout.CENTER);
-        
-        // Add dummy panel to EAST to balance the center title
-        JPanel dummy = new JPanel();
-        dummy.setPreferredSize(backBtn.getPreferredSize());
-        dummy.setOpaque(false);
-        header.add(dummy, BorderLayout.EAST);
-
-        return header;
     }
 }
